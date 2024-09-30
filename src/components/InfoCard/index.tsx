@@ -1,5 +1,4 @@
 import { Group, Stack, Text, ThemeIcon } from "@mantine/core";
-import { IconLink } from "@tabler/icons-react";
 
 export interface InfoCardProps {
   title: string;
