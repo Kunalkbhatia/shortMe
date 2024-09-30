@@ -1,7 +1,9 @@
+"use client"
 import { Button } from "@mantine/core";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default function page() {
   return (
-    <Button bg={"green"}>hi there</Button>
+    <Button bg={"green"} onClick={() => redirect("/home")}>hi there</Button>
   );
 }

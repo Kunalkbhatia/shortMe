@@ -11,9 +11,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        secondary: "#9580ff",
       },
     },
   },
   plugins: [],
+  // corePlugins: {
+  //   preflight: false,
+  // },
 };
 export default config;
