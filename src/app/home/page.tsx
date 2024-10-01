@@ -29,7 +29,7 @@ const page = () => {
 
       <div className="grid grid-cols-2 px-10">
         <TextInput
-          placeholder="Search bu long URL"
+          placeholder="Search buy long URL"
           variant="filled"
           leftSection={
             <ThemeIcon variant="transparent" color="gray">

@@ -5,7 +5,7 @@ import { IconSortDeacendingSmallBig } from '@tabler/icons-react'
 const SortBy = () => {
   return (
     <Select
-      placeholder="Sort By"
+      placeholder="Sort by"
       c="black"
       data={['Date created', 'Number of clicks']}
       variant='filled'
