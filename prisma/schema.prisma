@@ -24,23 +24,23 @@ model User {
   tags     Tag[]
 }
 
-model URL {
-  id              String       @id @default(cuid())
-  logo            String?
-  longURL         String
-  shortURL        String
-  slug            String?      @unique
-  tags            Tag[]
-  redirectVersion RedirectType @default(REDIRECT_301)
-  analyticsData   Analytics?
-  userId          String
-  folderId        String
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  // relations
-  user            User         @relation(fields: [userId], references: [id])
-  folder          Folder       @relation(fields: [folderId], references: [id])
-}
+  model URL {
+    id              String       @id @default(cuid())
+    logo            String?
+    longURL         String
+    shortURL        String?
+    slug            String?      @unique
+    tags            Tag[]
+    redirectVersion RedirectType @default(REDIRECT_301)
+    analyticsData   Analytics?
+    userId          String
+    folderId        String
+    createdAt       DateTime     @default(now())
+    updatedAt       DateTime     @updatedAt
+    // relations
+    user            User         @relation(fields: [userId], references: [id])
+    folder          Folder       @relation(fields: [folderId], references: [id])
+  }
 
 enum RedirectType {
   REDIRECT_301

@@ -8,7 +8,7 @@ export interface InfoCardProps {
 
 const InfoCard = ({ title, count, Icon }: InfoCardProps) => {
   return (
-    // <div className="border border-black">
+
     <Group justify="space-between" className="border-2 border-b-4 border-[#403f4f] rounded-lg p-6">
       <Stack>
         <Text>{title}</Text>
@@ -18,7 +18,7 @@ const InfoCard = ({ title, count, Icon }: InfoCardProps) => {
         {Icon}
       </ThemeIcon>
     </Group>
-    // </div>
+
   );
 };
 

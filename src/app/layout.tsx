@@ -5,6 +5,8 @@ import { ColorSchemeScript, createTheme } from "@mantine/core";
 import "./globals.css";
 import { MantineProvider } from "@mantine/core";
 import Header from "@/components/Header";
+import { Notifications } from '@mantine/notifications';
+import '@mantine/notifications/styles.css';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -57,6 +59,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <MantineProvider theme={MantineTheme}>
+        <Notifications />
           <Header/>
           {children}</MantineProvider>
       </body>

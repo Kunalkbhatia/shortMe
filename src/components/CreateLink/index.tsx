@@ -1,4 +1,5 @@
 "use client";
+import { createUrl } from "@/actions/createURL";
 import {
   Button,
   CloseButton,
@@ -14,27 +15,13 @@ import {
 } from "@mantine/core";
 import { useDisclosure, useToggle } from "@mantine/hooks";
 import { IconWand } from "@tabler/icons-react";
-import { useState } from "react";
+
+
 
 const CreateLink = () => {
   const [opened, { open, close }] = useDisclosure();
   const [withSlug, toggleSlug] = useToggle();
-  const [longUrl, setLongUrl] = useState("");
-  const [customSlug, setCustomSlug] = useState("");
-  const [tags, setTags] = useState([]);
-  const [analytics, setAnalytics] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const formData = {
-      longUrl,
-      customSlug: withSlug ? customSlug : null,
-      tags,
-      analytics,
-    };
-    console.log("Form Data: ", formData);
-    // Submit form logic here
-  };
 
   return (
     <>
@@ -58,14 +45,15 @@ const CreateLink = () => {
             success with instant URL magic!
           </Text>
         </Stack>
-        <form onSubmit={handleSubmit}>
+        <form action={(formData) => {
+          createUrl(formData).then(close);
+        }}>
           <Stack gap="md">
             <Group grow>
               <TextInput
+                name="longUrl"
                 className="w-[100%]"
                 placeholder="Enter your long URL"
-                value={longUrl}
-                onChange={(e) => setLongUrl(e.currentTarget.value)}
                 classNames={{
                   section: "w-36",
                 }}
@@ -84,9 +72,8 @@ const CreateLink = () => {
               />
               {withSlug === true ? (
                 <TextInput
+                  name="customSlug"
                   placeholder="Custom Slug"
-                  value={customSlug}
-                  onChange={(e) => setCustomSlug(e.currentTarget.value)}
                   rightSection={
                     <CloseButton onClick={() => toggleSlug(false)} />
                   }
@@ -95,16 +82,14 @@ const CreateLink = () => {
             </Group>
             <Group grow>
               <MultiSelect
+                name="tags"
                 placeholder="Select Tags"
                 data={["React", "Angular", "Vue", "Svelte"]}
-                value={tags}
-                onChange={setTags}
               />
               <Select
+                name="analytics"
                 placeholder="Want to monitor your analytics?"
                 data={["Yes", "No"]}
-                value={analytics}
-                onChange={setAnalytics}
               />
             </Group>
             <Group>

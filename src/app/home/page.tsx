@@ -9,6 +9,7 @@ import { Group, Stack, TextInput, ThemeIcon } from "@mantine/core";
 import { IconHandClick, IconLink, IconSearch } from "@tabler/icons-react";
 
 const page = () => {
+
   return (
     <>
       <div className="grid grid-cols-2 gap-10 p-10">
