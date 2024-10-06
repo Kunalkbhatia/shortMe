@@ -1,3 +1,6 @@
+"use client";
+import { loginUser } from '@/actions/loginUser'
+import { handleError } from '@/lib/error'
 import { Center, Stack, TextInput, PasswordInput, Button, Divider, ThemeIcon, Group, Text } from '@mantine/core'
 import { IconBrandGoogle } from '@tabler/icons-react'
 import Link from 'next/link'
@@ -8,10 +11,16 @@ const Login = () => {
     <Center className="h-screen">
       <Stack gap="lg" className="w-[30%]">
         <Text className="text-center text-3xl">ShortMe</Text>
-        <form>
+        <form action={async(formData) => {
+          const error = await loginUser(formData);
+          if(error){
+            handleError(error)
+          }
+        }}>
           <TextInput
             label="Email"
             variant="unstyled"  
+            name="email"
             withAsterisk
             placeholder="projectmayhem@fc.com"
             radius="md"
@@ -22,13 +31,14 @@ const Login = () => {
           <PasswordInput
             label="Password"
             variant="default"
+            name="password"
             placeholder="************"
             radius="md"
             classNames={{
               input: "border-2 border-b-4 border-[#403f4f] bg-[#2d2c3a] p-2",
             }}
           />
-          <Button fullWidth className="bg-secondary mt-4 hover:bg-[#2d2c3a]">Login</Button>
+          <Button type="submit" fullWidth className="bg-secondary mt-4 hover:bg-[#2d2c3a]">Login</Button>
         </form>
         <Divider my="xs" size="lg" label="or" labelPosition="center" classNames={{
           label: "text-xl"

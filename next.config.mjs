@@ -1,4 +1,9 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-
-export default nextConfig;
+const nextConfig = {
+    swcMinify: true,
+    experimental: {
+      optimizePackageImports: ['@mantine/core', '@mantine/hooks'],
+    },
+  };
+  
+  export default nextConfig;

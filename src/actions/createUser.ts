@@ -29,7 +29,6 @@ export const createUser = async (formData: FormData) => {
     });
   } catch (error) {
     const result = sendError(error);
-    // console.log(result);
     return result;
   }
 };
