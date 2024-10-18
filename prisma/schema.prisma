@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String?
+  email     String?  @unique
+  // emailVerified DateTime?
+  password  String?
+  image     String?
+  urls      URL[]
+  // folders   Folder[]
+  tags      Tag[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // accounts      Account[]
+}
+
+model URL {
+  id            String     @id @default(cuid())
+  logo          String?
+  longURL       String
+  shortURL      String?
+  slug          String?    @unique
+  tags          Tag[]      @relation("URLTags")
+  monitoring    Boolean?   @default(true)
+  analyticsData Analytics?
+  userId        String
+  // folderId      String
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  // relations
+  user          User       @relation(fields: [userId], references: [id])
+  // folder        Folder     @relation(fields: [folderId], references: [id])
+}
+
+// model Folder {
+//   id         String  @id @default(cuid())
+//   isRoot     Boolean @default(false)
+//   folderName String
+//   userId     String
+//   urls       URL[]
+//   // relations
+//   user       User    @relation(fields: [userId], references: [id])
+// }
+
+model Tag {
+  id     String @id @default(cuid())
+  name   String
+  userId String
+  // relations
+  urls   URL[]  @relation("URLTags")
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model Analytics {
+  id              String     @id @default(cuid())
+  urlId           String     @unique
+  totalClicks     Int        @default(0)
+  geoData         GeoClick[]
+  clicksOnMobile  Int        @default(0)
+  clicksOnDesktop Int        @default(0)
+  clicksOnTablet  Int        @default(0)
+
+  // relations
+  url URL @relation(fields: [urlId], references: [id])
+}
+
+model GeoClick {
+  id          String  @id @default(cuid())
+  country     String
+  state       String?
+  city        String?
+  clicks      Int     @default(0)
+  analyticsId String
+
+  // relations
+  analytics Analytics @relation(fields: [analyticsId], references: [id])
+
+  @@unique([country, state, city, analyticsId]) // To ensure unique entries for country, state, and city per URL
+}
+
+// model Account {
+//   id                 String    @id @default(cuid())
+//   userId             String
+//   providerType       String
+//   providerId         String
+//   providerAccountId  String
+//   refreshToken       String?
+//   accessToken        String?
+//   accessTokenExpires DateTime?
+//   createdAt          DateTime  @default(now())
+//   updatedAt          DateTime  @updatedAt
+//   user               User      @relation(fields: [userId], references: [id])
+
+//   @@unique([providerId, providerAccountId])
+// }
