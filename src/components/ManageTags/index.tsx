@@ -39,9 +39,10 @@ export function ManageTags({ tags }: { tags: Tag[] }) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="p-1 rounded-sm text-primaryButton hover:text-hoverButton cursor-pointer">
-            <Tagicon />
-          </div>
+        <div className="bg-primaryButton hover:bg-hoverButton p-1 rounded-sm text-white text-center md:p-2">
+          <div className="hidden md:block">Manage Tags</div>
+          <Tagicon className="md:hidden w-5"/>
+        </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <div className="flex flex-col gap-2">
@@ -69,15 +70,17 @@ export function ManageTags({ tags }: { tags: Tag[] }) {
               <div>{tag.name}</div>
               <div className="flex gap-2">
                 <Edit
-                  size="20px"
-                  onClick={() => {
+                  className="h-4 w-4"
+                  onClick={(e) => {
+                    e.stopPropagation()
                     setIsEditTagOpen(true);
                     setTagToEdit(tag);
                   }}
                 />
                 <Trash
-                  size="20px"
-                  onClick={() => {
+                  className="h-4 w-4"
+                  onClick={(e) => {
+                    e.stopPropagation()
                     setIsDeleteTagOpen(true);
                     setTagToEdit(tag);
                   }}

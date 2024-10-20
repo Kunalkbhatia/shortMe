@@ -1,4 +1,4 @@
-import { BarChart, Copy, Edit, QrCode } from "lucide-react";
+import { BarChart, Copy, Edit, QrCode, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { URL } from "@prisma/client";
@@ -15,7 +15,7 @@ const URLCard = ({ url }: URLContainerProps) => {
       <CardContent className="pt-6">
         {/* URL Name */}
         <div className="mb-1 text-2xl font-semibold text-gray-800 truncate">
-          Title
+          {url.name}
         </div>
 
         <div className="flex items-center justify-between mb-2">
@@ -36,7 +36,7 @@ const URLCard = ({ url }: URLContainerProps) => {
               <span className="sr-only">Copy short URL</span>
             </Button>
             <Button variant="ghost" size="icon">
-              <Edit className="h-4 w-4" />
+              <Trash className="h-4 w-4" />
               <span className="sr-only">Edit URL</span>
             </Button>
             <Button variant="ghost" size="icon">

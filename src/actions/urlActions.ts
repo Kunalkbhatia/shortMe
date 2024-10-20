@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 
 export async function shortURLBySlug(formData: FormData, tags: Tag[]) {
   const longURL = formData.get("longURL") as string;
+  const name = formData.get("name") as string;
   let slug = formData.get("slug") as string;
   slug = slug.replace(/\s+/g, '');
   const session = await auth();
@@ -22,6 +23,7 @@ export async function shortURLBySlug(formData: FormData, tags: Tag[]) {
         data: {
           longURL,
           slug,
+          name,
           user: {
             connect: {
               id: session?.user?.id,
@@ -41,12 +43,14 @@ export async function shortURLBySlug(formData: FormData, tags: Tag[]) {
 
 export async function shortURL(formData: FormData, tags: Tag[]) {
   const longURL = formData.get("longURL") as string;
+  const name = formData.get("name") as string;
   const session = await auth();
 
   try{
     const entry = await prisma.uRL.create({
         data: {
             longURL,
+            name,
             tags: {
                 connect: tags.map((tag) => ({id: tag.id}))
             },

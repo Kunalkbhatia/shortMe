@@ -29,6 +29,7 @@ model User {
 model URL {
   id            Int        @id @default(autoincrement())
   logo          String?
+  name          String
   longURL       String
   shortURL      String?
   clicks        Int        @default(0)

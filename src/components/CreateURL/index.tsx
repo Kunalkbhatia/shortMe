@@ -14,6 +14,7 @@ import { Button } from "../ui/button";
 import { SelectTags } from "../SelectTags";
 import { Tag } from "@prisma/client";
 import { shortURL, shortURLBySlug } from "@/actions/urlActions";
+import { Link2 } from "lucide-react";
 
 export interface CreateURLProps {
   tags: Tag[];
@@ -25,8 +26,9 @@ const CreateURL = ({ tags }: CreateURLProps) => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="bg-primaryButton hover:bg-hoverButton p-2 rounded-sm text-white">
-          Create new Link
+        <div className="bg-primaryButton hover:bg-hoverButton p-1 rounded-sm text-white text-center md:p-2">
+          <div className="hidden md:block">Create a Link</div>
+          <Link2 className="md:hidden w-5" />
         </div>
       </DialogTrigger>
       <DialogContent>
@@ -41,9 +43,11 @@ const CreateURL = ({ tags }: CreateURLProps) => {
         </DialogHeader>
         <form
           action={async (formData: FormData) => {
+            const name = formData.get("name") as string | undefined;
             const longURL = formData.get("longURL") as string | undefined;
             const slug = formData.get("slug") as string | undefined;
 
+            if(name === undefined || name.length === 0)return alert("Please Enter a Name");
             // Check if longURL is undefined or an empty string
             if (longURL === undefined || longURL.length === 0) {
               return alert("Please Enter Long URL");
@@ -59,6 +63,11 @@ const CreateURL = ({ tags }: CreateURLProps) => {
           }}
         >
           <div className="space-y-4">
+            <Input
+              placeholder="Enter a Name"
+              name="name"
+              className="col-span-2 bg-gray-200 focus-within:outline-none"
+            />
             <Input
               placeholder="Enter your Long URL"
               name="longURL"

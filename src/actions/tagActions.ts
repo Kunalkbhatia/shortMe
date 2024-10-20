@@ -43,17 +43,15 @@ export async function updateTag(formData: FormData, tag: Tag) {
     },
     where: {
       id: tag.id,
-      userId: tag.userId,
     },
   });
   revalidatePath("/");
 }
 
-export async function DeleteTag(tag: Tag) {
+export async function   DeleteTag(tag: Tag) {
   await prisma.tag.delete({
     where: {
       id: tag.id,
-      userId: tag.userId,
     },
   });
   revalidatePath("/");

@@ -9,7 +9,7 @@ import {
 const SelectFolder = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[150px] bg-gray-200">
+      <SelectTrigger className="w-[120px] bg-gray-200 ">
         <SelectValue placeholder="Folders" />
       </SelectTrigger>
       <SelectContent>

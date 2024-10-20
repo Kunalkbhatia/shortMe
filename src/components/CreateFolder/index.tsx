@@ -16,8 +16,9 @@ const CreateFolder = () => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="p-1 rounded-sm text-primaryButton hover:text-hoverButton" >
-          <FolderPlus/>
+      <div className="bg-primaryButton hover:bg-hoverButton p-1 rounded-sm text-white text-center md:p-2">
+          <div className="hidden md:block">Create a Folder</div>
+          <FolderPlus className="md:hidden w-5"/>
         </div>
       </DialogTrigger>
       <DialogContent >
