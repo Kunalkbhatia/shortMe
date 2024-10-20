@@ -13,6 +13,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { SelectTags } from "../SelectTags";
 import { Tag } from "@prisma/client";
+import { shortURL, shortURLBySlug } from "@/actions/urlActions";
 
 export interface CreateURLProps {
   tags: Tag[];
@@ -38,9 +39,25 @@ const CreateURL = ({ tags }: CreateURLProps) => {
             success with instant URL magic!
           </DialogDescription>
         </DialogHeader>
-        <form action={async(formData: FormData) => {
-          const error = await shortUrl(formData, selectedTags);
-        }}>
+        <form
+          action={async (formData: FormData) => {
+            const longURL = formData.get("longURL") as string | undefined;
+            const slug = formData.get("slug") as string | undefined;
+
+            // Check if longURL is undefined or an empty string
+            if (longURL === undefined || longURL.length === 0) {
+              return alert("Please Enter Long URL");
+            }
+
+            if (typeof slug === "string" && slug.length > 0) {
+              const error = await shortURLBySlug(formData, selectedTags);
+              if (error) alert(error);
+            } else {
+              const error = await shortURL(formData, selectedTags);
+              if (error) alert(error);
+            }
+          }}
+        >
           <div className="space-y-4">
             <Input
               placeholder="Enter your Long URL"
@@ -67,7 +84,10 @@ const CreateURL = ({ tags }: CreateURLProps) => {
             </div>
           </div>
           <DialogFooter className="flex justify-end">
-            <Button type="submit" className="bg-primaryButton hover:bg-hoverButton">
+            <Button
+              type="submit"
+              className="bg-primaryButton hover:bg-hoverButton"
+            >
               Short me
             </Button>
             <Button variant="destructive">Cancel</Button>

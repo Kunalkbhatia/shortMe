@@ -1,5 +1,4 @@
 import Link from "next/link";
-
 import {
   Card,
   CardContent,
@@ -13,7 +12,6 @@ import Image from "next/image";
 import mySvg from "../../assests/cloud.svg";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-// import { redirect } from "next/navigation";
 
 async function SignIn() {
   const session = await auth();
@@ -30,7 +28,7 @@ async function SignIn() {
             src={mySvg}
             alt="My Icon"
             className="absolute bottom-1/3 left-1/4 transform -translate-x-1/2 -translate-y-1/2"
-            width={100} // Adjust size as needed
+            width={100}
           />
         </div>
         <div className="text-md text-center font-semibold text-primaryBorder px-6">

@@ -15,73 +15,81 @@ import CreateFolder from "@/components/CreateFolder";
 import { Profile } from "@/components/Profile";
 import SelectFolder from "@/components/SelectFolder";
 import { Input } from "@/components/ui/input";
-import URLContainer from "@/components/URLContainer";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import CreateURL from "@/components/CreateURL";
 import { ManageTags } from "@/components/ManageTags";
 import prisma from "@/lib/db";
-
+import Link from "next/link";
+import URLCard from "@/components/URLContainer";
 
 async function Dashboard() {
   const session = await auth();
-  if(!session?.user)redirect("/sign-in");
+  if (!session?.user) redirect("/sign-in");
 
   const tags = await prisma.tag.findMany();
+  const urls = await prisma.uRL.findMany();
 
   return (
-    <div className="grid h-screen w-full">
-      <div className="flex flex-col">
-        <header className="sticky top-0 z-10 flex justify-between h-[57px] items-center gap-1 bg-background px-4 border border-gray-200">
-          <h1 className="text-xl font-semibold">ShortMe</h1>
-          {/* <Drawer>
-            <DrawerTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Settings className="size-4" />
-                <span className="sr-only">Settings</span>
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent className="max-h-[80vh]">
-              <DrawerHeader>
-                <DrawerTitle>Configuration</DrawerTitle>
-                <DrawerDescription>
-                  Configure the settings for the model and messages.
-                </DrawerDescription>
-              </DrawerHeader>
-              
-            </DrawerContent>
-          </Drawer> */}
-          <Profile />
-        </header>
+    // <div className="flex flex-col h-screen overflow-hidden">
+    //   <header className="sticky top-0 flex justify-between h-[60px] items-center gap-1 bg-background px-4 border border-gray-200">
+    //     <h1 className="text-xl font-semibold">ShortMe</h1>
+    //     <Link href="sign-in">Sign In</Link>
 
-        <main className="grid flex-1 gap-4 overflow-auto lg:grid-cols-3">
-          <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 lg:col-span-2">
-            <div className="grid grid-cols-3 p-3 pt-7">
-              <div className="col-span-1">
-                <Input
-                  placeholder="Search with Long URL"
-                  className="w-[90%] focus-within:outline-none bg-gray-200"
-                />
-              </div>
-              <div className="col-span-2 flex gap-2 justify-end items-center">
-                <ManageTags tags={tags}/>
-                <CreateFolder />
-                <SelectFolder />
-                <SelectFolder />
-                <CreateURL tags={tags}/>
-              </div>
-            </div>
-            <URLContainer />
-          </div>
+    //     <Profile />
+    //   </header>
 
-          <div
-            className="relative hidden flex-col items-start gap-8 md:flex p-5"
-            x-chunk="dashboard-03-chunk-0"
-          >
-            <Chart/>
+    //   <main className="h-[calc(100vh-60px)] grid lg:grid-cols-3 gap-4 border-red-900 border-8">
+    //     <div className=" lg:col-span-2 flex flex-col h-full overflow-auto">
+    //       <div className="grid grid-cols-3 p-3 pt-7">
+    //         <div className="col-span-1">
+    //           <Input
+    //             placeholder="Search with Long URL"
+    //             className="w-[90%] focus-within:outline-none bg-gray-200"
+    //           />
+    //         </div>
+    //         <div className="col-span-2 flex gap-2 justify-end items-center">
+    //           <ManageTags tags={tags} />
+    //           <CreateFolder />
+    //           <SelectFolder />
+    //           <SelectFolder />
+    //           <CreateURL tags={tags} />
+    //         </div>
+    //       </div>
+    //       <div className="flex-1  hide-scrollbar p-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+    //         {urls.map((url) => (
+    //           <URLCard url={url} key={url.id} />
+    //         ))}
+    //       </div>
+    //     </div>
+
+    //     {/* <div
+    //       className="relative hidden flex-col items-start gap-8 md:flex p-5"
+    //       x-chunk="dashboard-03-chunk-0"
+    //     >
+    //       <Chart />
+    //     </div> */}
+    //   </main>
+    // </div>
+    <div className="flex flex-col h-screen border-green-900 border-4">
+      <header className="flex  justify-between items-center h-[60px] px-5 border-2 border-pink-600">
+        <h1 className="text-xl font-semibold">ShortMe</h1>
+        <Link href="sign-in">Sign In</Link>
+        <Profile />
+      </header>
+      <main className="flex-1 grid grid-cols-3 border-4 border-red-900">
+        <div className="col-span-2 flex flex-col border-4 border-purple-700">
+          <div className="h-[60px] border-4 border-orange-500"></div>
+          <div className="flex-1 overflow-y-auto border-4  border-teal-600">
+            {urls.map((url) => (
+              <div className="h-[200px] border-4 border-black" key={url.id}>
+                {url.longURL}
+              </div>
+            ))}
           </div>
-        </main>
-      </div>
+        </div>
+        {/* <div className="col-span-1 border-4 border-blue-800"></div> */}
+      </main>
     </div>
   );
 }
