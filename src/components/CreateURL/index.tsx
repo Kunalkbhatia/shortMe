@@ -15,6 +15,7 @@ import { SelectTags } from "../SelectTags";
 import { Tag } from "@prisma/client";
 import { shortURL, shortURLBySlug } from "@/actions/urlActions";
 import { Link2 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 export interface CreateURLProps {
   tags: Tag[];
@@ -22,6 +23,7 @@ export interface CreateURLProps {
 
 const CreateURL = ({ tags }: CreateURLProps) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [monitoring, setMonitoring] = useState<boolean>(true);
 
   return (
     <Dialog>
@@ -47,17 +49,18 @@ const CreateURL = ({ tags }: CreateURLProps) => {
             const longURL = formData.get("longURL") as string | undefined;
             const slug = formData.get("slug") as string | undefined;
 
-            if(name === undefined || name.length === 0)return alert("Please Enter a Name");
+            if (name === undefined || name.length === 0)
+              return alert("Please Enter a Name");
             // Check if longURL is undefined or an empty string
             if (longURL === undefined || longURL.length === 0) {
               return alert("Please Enter Long URL");
             }
 
             if (typeof slug === "string" && slug.length > 0) {
-              const error = await shortURLBySlug(formData, selectedTags);
+              const error = await shortURLBySlug(formData, selectedTags, monitoring);
               if (error) alert(error);
             } else {
-              const error = await shortURL(formData, selectedTags);
+              const error = await shortURL(formData, selectedTags, monitoring);
               if (error) alert(error);
             }
           }}
@@ -84,12 +87,23 @@ const CreateURL = ({ tags }: CreateURLProps) => {
                 AI Slug
               </Button>
             </div>
-            <div>
+            <div className="grid grid-cols-2 gap-4">
               <SelectTags
                 tags={tags}
                 selectedTags={selectedTags}
                 onTagChange={setSelectedTags}
               />
+              <Select onValueChange={(value) => {
+                setMonitoring(JSON.parse(value));
+              }}>
+                <SelectTrigger className="bg-gray-200 ">
+                  <SelectValue placeholder="Want to monitor your URL" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="true">Yes (recommended)</SelectItem>
+                  <SelectItem value="false">No</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <DialogFooter className="flex justify-end">

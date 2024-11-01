@@ -5,7 +5,7 @@ import { encodeBase62 } from "@/lib/utils";
 import { Tag } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
-export async function shortURLBySlug(formData: FormData, tags: Tag[]) {
+export async function shortURLBySlug(formData: FormData, tags: Tag[], monitoring: boolean) {
   const longURL = formData.get("longURL") as string;
   const name = formData.get("name") as string;
   let slug = formData.get("slug") as string;
@@ -24,6 +24,7 @@ export async function shortURLBySlug(formData: FormData, tags: Tag[]) {
           longURL,
           slug,
           name,
+          monitoring,
           user: {
             connect: {
               id: session?.user?.id,
@@ -41,7 +42,7 @@ export async function shortURLBySlug(formData: FormData, tags: Tag[]) {
   revalidatePath("/");
 }
 
-export async function shortURL(formData: FormData, tags: Tag[]) {
+export async function shortURL(formData: FormData, tags: Tag[], monitoring:boolean) {
   const longURL = formData.get("longURL") as string;
   const name = formData.get("name") as string;
   const session = await auth();
@@ -51,6 +52,7 @@ export async function shortURL(formData: FormData, tags: Tag[]) {
         data: {
             longURL,
             name,
+            monitoring,
             tags: {
                 connect: tags.map((tag) => ({id: tag.id}))
             },
