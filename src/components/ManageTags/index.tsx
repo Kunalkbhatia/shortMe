@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Tag } from "@prisma/client";
-import { Edit, Tag as Tagicon, Trash } from "lucide-react";
+import { Edit, Trash } from "lucide-react";
 import { useState } from "react";
 import CreateTagDialog from "../Dialogs/CreateTagDialog";
 import DeleteTagDialog from "../Dialogs/DeleteTagDialog";
@@ -39,9 +39,8 @@ export function ManageTags({ tags }: { tags: Tag[] }) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-        <div className="bg-primaryButton hover:bg-hoverButton p-1 rounded-sm text-white text-center md:p-2">
-          <div className="hidden md:block">Manage Tags</div>
-          <Tagicon className="md:hidden w-5"/>
+        <div className="bg-primaryButton hover:bg-hoverButton p-2 rounded-sm text-white text-center">
+          Manage Tags
         </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">

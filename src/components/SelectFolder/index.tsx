@@ -5,17 +5,20 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { ArrowUpDown } from "lucide-react";
 
 const SelectFolder = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[120px] bg-gray-200 ">
-        <SelectValue placeholder="Folders" />
+      <SelectTrigger className="text-md">
+        <div className="flex items-center gap-2">
+        <ArrowUpDown className="w-4"/>
+        <SelectValue placeholder="Ordering"/>
+        </div>
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="light">Folder 1</SelectItem>
-        <SelectItem value="dark">Folder 2</SelectItem>
-        <SelectItem value="system">Folder 3</SelectItem>
+        <SelectItem value="light" >Date Added</SelectItem>
+        <SelectItem value="dark">Number of Clicks</SelectItem>
       </SelectContent>
     </Select>
   );

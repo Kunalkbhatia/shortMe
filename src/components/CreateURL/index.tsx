@@ -14,8 +14,13 @@ import { Button } from "../ui/button";
 import { SelectTags } from "../SelectTags";
 import { Tag } from "@prisma/client";
 import { shortURL, shortURLBySlug } from "@/actions/urlActions";
-import { Link2 } from "lucide-react";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 export interface CreateURLProps {
   tags: Tag[];
@@ -28,9 +33,8 @@ const CreateURL = ({ tags }: CreateURLProps) => {
   return (
     <Dialog>
       <DialogTrigger>
-        <div className="bg-primaryButton hover:bg-hoverButton p-1 rounded-sm text-white text-center md:p-2">
-          <div className="hidden md:block">Create a Link</div>
-          <Link2 className="md:hidden w-5" />
+        <div className="bg-primaryButton hover:bg-hoverButton p-2 rounded-sm text-white text-center">
+          Create a Link
         </div>
       </DialogTrigger>
       <DialogContent>
@@ -57,7 +61,11 @@ const CreateURL = ({ tags }: CreateURLProps) => {
             }
 
             if (typeof slug === "string" && slug.length > 0) {
-              const error = await shortURLBySlug(formData, selectedTags, monitoring);
+              const error = await shortURLBySlug(
+                formData,
+                selectedTags,
+                monitoring
+              );
               if (error) alert(error);
             } else {
               const error = await shortURL(formData, selectedTags, monitoring);
@@ -93,9 +101,11 @@ const CreateURL = ({ tags }: CreateURLProps) => {
                 selectedTags={selectedTags}
                 onTagChange={setSelectedTags}
               />
-              <Select onValueChange={(value) => {
-                setMonitoring(JSON.parse(value));
-              }}>
+              <Select
+                onValueChange={(value) => {
+                  setMonitoring(JSON.parse(value));
+                }}
+              >
                 <SelectTrigger className="bg-gray-200 ">
                   <SelectValue placeholder="Want to monitor your URL" />
                 </SelectTrigger>
