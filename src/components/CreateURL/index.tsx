@@ -49,12 +49,8 @@ const CreateURL = ({ tags }: CreateURLProps) => {
         </DialogHeader>
         <form
           action={async (formData: FormData) => {
-            const name = formData.get("name") as string | undefined;
             const longURL = formData.get("longURL") as string | undefined;
             const slug = formData.get("slug") as string | undefined;
-
-            if (name === undefined || name.length === 0)
-              return alert("Please Enter a Name");
             // Check if longURL is undefined or an empty string
             if (longURL === undefined || longURL.length === 0) {
               return alert("Please Enter Long URL");
@@ -74,11 +70,6 @@ const CreateURL = ({ tags }: CreateURLProps) => {
           }}
         >
           <div className="space-y-4">
-            <Input
-              placeholder="Enter a Name"
-              name="name"
-              className="col-span-2 bg-gray-200 focus-within:outline-none"
-            />
             <Input
               placeholder="Enter your Long URL"
               name="longURL"
