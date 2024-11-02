@@ -15,6 +15,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { auth } from "@/auth";
 
 // Menu items.
 const items = [
@@ -35,7 +36,10 @@ const items = [
   },
 ];
 
-export function AppSidebar() {
+export async function AppSidebar() {
+  const session = await auth();
+  if (!session?.user) return;
+  
   return (
     <Sidebar variant="floating">
       <SidebarContent>
