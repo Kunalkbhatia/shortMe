@@ -45,7 +45,7 @@ const CreateTagDialog = ({ isOpen, close}: CreateTagProps) => {
               </Button>
             </DialogClose>
             <DialogClose>
-              <Button variant="destructive">Cancel</Button>
+              <Button type="button" variant="destructive">Cancel</Button>
             </DialogClose>
           </DialogFooter>
         </form>

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest, { params }: { params: { shortURL: string } }) {
     const shortURLOrSlug = params.shortURL;
+    console.log(shortURLOrSlug);    
 
     const URLBySlug = await prisma.uRL.findFirst({
         where: {

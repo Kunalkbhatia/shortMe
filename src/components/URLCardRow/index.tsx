@@ -1,10 +1,14 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Tag, URL } from "@prisma/client";
+import { Tag , URL } from "@prisma/client";
 import { Button } from "../ui/button";
-import { Copy, Trash, QrCode, CornerDownRight, Pointer } from "lucide-react";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
+import { Copy, Trash, QrCode, CornerDownRight, Pointer, Tag  as IconTag } from "lucide-react";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
 
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   return (
@@ -21,14 +25,14 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
             <div className="flex items-center gap-2">
               {url.slug ? (
                 <a
-                  href=""
+                  href={`http://localhost:3000/${url.slug}`}
                   className="font-bold"
-                >{`https://shortme.dev/${url.slug}`}</a>
+                >{`http://localhost:3000/${url.slug}`}</a>
               ) : (
                 <a
-                  href=""
+                  href={`http://localhost:3000/${url.shortURL}`}
                   className="font-bold"
-                >{`https://shortme.dev/${url.shortURL}`}</a>
+                >{`http://localhost:3000/${url.shortURL}`}</a>
               )}
               <div className="flex items-center">
                 <Button variant="ghost" size="icon">
@@ -57,13 +61,26 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
         </div>
         <div className="flex items-center gap-4">
           <HoverCard>
-            <HoverCardTrigger className="text-white bg-primaryButton p-2 rounded-md">{url.tags[0]?.name ?? "No Tags"}</HoverCardTrigger>
-            <HoverCardContent>
-              The React Framework – created and maintained by @vercel.
-            </HoverCardContent>
+            <HoverCardTrigger className="flex items-center px-3 py-1 space-x-2 w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600">
+            <IconTag className="w-4 h-4 text-blue-600" />
+            <span className="font-medium">{url.tags[0]?.name ?? "No Tags"}</span>
+            {url.tags.length >= 1 && <span className="ml-auto text-blue-600"> | +{url.tags.length-1}</span>}
+            </HoverCardTrigger>
+            {url.tags.length > 1 && (
+              <HoverCardContent className="w-fit space-y-2">
+                {url.tags.map((tag, index) => {
+                  if (index >= 1)
+                    return (
+                      <div key={tag.id} className="px-3 py-1 space-x-2 w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600">
+                       {tag.name}
+                      </div>
+                    );
+                })}
+              </HoverCardContent>
+            )}
           </HoverCard>
           <Button variant="outline">
-            <Pointer className="w-5 mr-2"/>
+            <Pointer className="w-5 mr-2" />
             <div>clicks {url.clicks}</div>
           </Button>
         </div>

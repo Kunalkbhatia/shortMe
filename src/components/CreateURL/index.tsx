@@ -21,6 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 export interface CreateURLProps {
   tags: Tag[];
@@ -114,7 +115,9 @@ const CreateURL = ({ tags }: CreateURLProps) => {
             >
               Short me
             </Button>
-            <Button variant="destructive">Cancel</Button>
+            <DialogClose>
+              <Button type="button" variant="destructive">Cancel</Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </DialogContent>

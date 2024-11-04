@@ -9,7 +9,6 @@ import {
 } from "../../ui/dialog";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { DeleteTag } from "@/actions/tagActions";
-import { Badge } from "@/components/ui/badge";
 
 export interface DeleteTagProps {
   isOpen: boolean;
@@ -37,7 +36,7 @@ const DeleteTagDialog = ({ isOpen, close, tag }: DeleteTagProps) => {
             </Button>
           </DialogClose>
           <DialogClose>
-            <Button variant="destructive">Cancel</Button>
+            <Button type="button" variant="destructive">Cancel</Button>
           </DialogClose>
         </DialogFooter>
       </DialogContent>
