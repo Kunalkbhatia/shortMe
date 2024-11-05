@@ -31,6 +31,9 @@ export async function shortURLBySlug(formData: FormData, tags: Tag[], monitoring
           tags: {
             connect: tags.map((tag) => ({ id: tag.id })),
           },
+          analyticsData: {
+            create : {}
+          }
         },
       });
   } catch(error){
@@ -56,6 +59,9 @@ export async function shortURL(formData: FormData, tags: Tag[], monitoring:boole
                 connect: {
                     id: session?.user?.id
                 }
+            },
+            analyticsData: {
+              create: {}
             }
         }
       })

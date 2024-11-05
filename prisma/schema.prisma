@@ -23,7 +23,6 @@ model User {
   tags      Tag[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // accounts      Account[]
 }
 
 model URL {
@@ -53,13 +52,24 @@ model Tag {
 }
 
 model Analytics {
-  id              String     @id @default(cuid())
-  urlId           Int        @unique
-  totalClicks     Int        @default(0)
-  geoData         GeoClick[]
-  clicksOnMobile  Int        @default(0)
-  clicksOnDesktop Int        @default(0)
-  clicksOnTablet  Int        @default(0)
+  id                    String     @id @default(cuid())
+  urlId                 Int        @unique
+  totalClicks           Int        @default(0)
+  geoData               GeoClick[]
+  clicksOnMobile        Int        @default(0)
+  clicksOnDesktop       Int        @default(0)
+  clicksOnTablet        Int        @default(0)
+  clicksOnChrome        Int        @default(0)
+  clicksOnEdge          Int        @default(0)
+  clicksOnSafari        Int        @default(0)
+  clicksOnFireFox       Int        @default(0)
+  clicksOnOtherBrowsers Int        @default(0)
+  clicksOnAndroid       Int        @default(0)
+  clicksOnIOS           Int        @default(0)
+  clicksOnLinux         Int        @default(0)
+  clicksOnWindows       Int        @default(0)
+  clicksOnMacOs         Int        @default(0)
+  clicksOnOtherOs       Int        @default(0) // rest browser
 
   // relations
   url URL @relation(fields: [urlId], references: [id])
