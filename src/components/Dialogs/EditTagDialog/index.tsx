@@ -22,7 +22,7 @@ export interface EditTagProps {
 const EditTagDialog = ({ isOpen, close, tag }: EditTagProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={close}>
-      <DialogContent>
+      <DialogContent className="max-w-[350px] md:max-w-[425px] rounded-md">
         <DialogHeader>
           <DialogTitle>Edit the tag</DialogTitle>
         </DialogHeader>
@@ -37,7 +37,7 @@ const EditTagDialog = ({ isOpen, close, tag }: EditTagProps) => {
             name="tagName"
             className="bg-gray-200"
           />
-          <DialogFooter>
+          <DialogFooter className="flex flex-row justify-end gap-2">
             <DialogClose>
               <Button
                 type="submit"

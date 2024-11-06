@@ -19,14 +19,14 @@ export interface DeleteTagProps {
 const DeleteTagDialog = ({ isOpen, close, tag }: DeleteTagProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={close}>
-      <DialogContent>
+      <DialogContent className="max-w-[350px] md:max-w-[425px] rounded-sm">
         <DialogHeader>
-          <div className="flex items-center gap-1">
+          <div className="flex justify-start items-center gap-1">
           <div>Are you sure you want to delete</div>
           <div className="w-fit px-2 bg-primaryButton text-white rounded-lg">{tag.name}</div>
           </div>
         </DialogHeader>
-        <DialogFooter>
+        <DialogFooter className="flex flex-row justify-end gap-2">
           <DialogClose>
             <Button
               onClick={() => DeleteTag(tag)}

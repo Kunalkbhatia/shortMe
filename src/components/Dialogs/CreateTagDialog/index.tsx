@@ -19,9 +19,9 @@ export interface CreateTagProps {
 const CreateTagDialog = ({ isOpen, close}: CreateTagProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={close}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[350px] md:max-w-[425px] rounded-sm">
         <DialogHeader>
-          <DialogTitle>Add New Tag</DialogTitle>
+          <DialogTitle className="text-left">Add New Tag</DialogTitle>
         </DialogHeader>
         <form
           action={async (formData: FormData) => {
@@ -35,7 +35,7 @@ const CreateTagDialog = ({ isOpen, close}: CreateTagProps) => {
             name="tagName"
             className="bg-gray-200"
           />
-          <DialogFooter>
+          <DialogFooter className="flex flex-row justify-end gap-2">
             <DialogClose>
               <Button
                 type="submit"
