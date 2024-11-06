@@ -41,7 +41,7 @@ export async function AppSidebar() {
   if (!session?.user) return;
   
   return (
-    <Sidebar variant="floating">
+    <Sidebar variant="inset">
       <SidebarContent>
         <SidebarGroup className="space-y-5">
           <SidebarGroupLabel className="flex justify-between">

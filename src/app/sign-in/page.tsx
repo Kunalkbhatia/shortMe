@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import SignInForm from "@/components/AuthForms/Sign-in";
+import SignInForm from "@/components/Forms/Sign-in";
 import Image from "next/image";
 import mySvg from "../../assests/cloud.svg";
 import { auth } from "@/auth";

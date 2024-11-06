@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import mySvg from "../../assests/cloud.svg";
-import SignUpForm from "@/components/AuthForms/Sign-up";
+import SignUpForm from "@/components/Forms/Sign-up";
 
 function SignUp() {
   return (
