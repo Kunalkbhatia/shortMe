@@ -6,6 +6,7 @@ import CreateURL from "@/components/CreateURL";
 import { ManageTags } from "@/components/ManageTags";
 import prisma from "@/lib/db";
 import URLCardRow from "@/components/URLCardRow";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 async function Dashboard() {
   const session = await auth();
@@ -19,9 +20,12 @@ async function Dashboard() {
   });
 
   return (
-    <div className="flex-1 flex flex-col space-y-12 p-8 h-screen overflow-hidden">
+    <div className="flex-1 flex flex-col space-y-12 p-3 md:p-8 h-screen overflow-hidden">
+      <div className="flex justify-between items-center">
       <div className="text-3xl font-bold text-prim">Links</div>
-      <div className="grid lg:grid-cols-2 gap-5">
+      <SidebarTrigger/>
+      </div>
+      <div className="grid md:grid-cols-2 gap-5">
         <div className="flex gap-4">
           <SelectFolder />
           <Input
