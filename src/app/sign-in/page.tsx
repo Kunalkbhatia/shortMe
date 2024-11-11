@@ -15,7 +15,7 @@ import { redirect } from "next/navigation";
 
 async function SignIn() {
   const session = await auth();
-  if(session?.user)redirect("/");
+  if(session?.user)redirect("/shortme");
 
   return (
     <div className="grid lg:grid-cols-3 h-screen">

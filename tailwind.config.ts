@@ -12,6 +12,7 @@ const config: Config = {
   		colors: {
   			primaryBorder: '#403f4f',
   			primaryButton: '#9599ff',
+			secondaryBg: '#FAEEFC',
   			hoverButton: '#9580ff',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
