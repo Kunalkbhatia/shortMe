@@ -1,9 +1,16 @@
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Tag , URL } from "@prisma/client";
+import { Tag, URL } from "@prisma/client";
 import { Button } from "../ui/button";
-import { Copy, Trash, QrCode, CornerDownRight, Pointer, Tag  as IconTag } from "lucide-react";
+import {
+  Copy,
+  Trash,
+  QrCode,
+  CornerDownRight,
+  Pointer,
+  Tag as IconTag,
+} from "lucide-react";
 import {
   HoverCard,
   HoverCardContent,
@@ -13,7 +20,7 @@ import {
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   return (
     <Card>
-      <CardContent className="flex items-center justify-between pt-2">
+      <CardContent className="flex flex-wrap items-center justify-between pt-2 gap-5">
         <div className="flex items-center gap-2">
           <div>
             <Avatar>
@@ -47,15 +54,17 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
               </div>
             </div>
             <div className="flex gap-3 items-center">
-              <div className="flex">
-                <CornerDownRight className="w-3" />
-                <div>{url.longURL}</div>
+              <div className="flex items-center max-w-[200px] sm:max-w-[300px] overflow-hidden whitespace-nowrap">
+                <CornerDownRight className="w-3 flex-shrink-0" />
+                <div className="text-ellipsis overflow-hidden whitespace-nowrap">
+                  {url.longURL}
+                </div>
               </div>
-              <Avatar className="w-5 h-5">
+              <Avatar className="w-5 h-5 flex-shrink-0">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <div className="font-bold">Oct 29</div>
+              <div className="font-bold flex-shrink-0">Oct 29</div>
             </div>
           </div>
         </div>
