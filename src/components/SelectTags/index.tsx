@@ -18,7 +18,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
-import { Badge } from "../ui/badge";
 import { Tag } from "@prisma/client";
 
 export interface SelectTagsProps {
@@ -47,7 +46,6 @@ export function SelectTags({tags, selectedTags, onTagChange}: SelectTagsProps) {
   };
 
   return (
-    <div className="flex flex-col gap-2">
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
@@ -89,13 +87,5 @@ export function SelectTags({tags, selectedTags, onTagChange}: SelectTagsProps) {
         </Command>
       </PopoverContent>
     </Popover>
-    <div className="flex flex-wrap gap-2">
-        {
-            selectedTags.map((tag) => (
-                <Badge key={tag.id} className="w-fit px-5">{tag.name}</Badge>
-            ))
-        }
-    </div>
-    </div>
   );
 }

@@ -3,8 +3,15 @@ import { SelectTags } from "@/components/SelectTags";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tag } from "@prisma/client";
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@radix-ui/react-select";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 import { useState } from "react";
+import { Badge } from "@/components/ui/badge";
 
 const CreateURLForm = ({ tags }: { tags: Tag[] }) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
@@ -58,10 +65,11 @@ const CreateURLForm = ({ tags }: { tags: Tag[] }) => {
           />
           <Select
             onValueChange={(value) => {
-              setMonitoring(JSON.parse(value));
+              if (value === "true") setMonitoring(true);
+              else setMonitoring(false);
             }}
           >
-            <SelectTrigger className="bg-gray-200 ">
+            <SelectTrigger className="bg-gray-200 rounded-sm ">
               <SelectValue placeholder="Want to monitor your URL" />
             </SelectTrigger>
             <SelectContent>
@@ -70,8 +78,18 @@ const CreateURLForm = ({ tags }: { tags: Tag[] }) => {
             </SelectContent>
           </Select>
         </div>
+        <div>
+          <div>Selected tags: </div>
+          <div className="flex flex-wrap gap-2 py-2">
+          {selectedTags.map((tag) => (
+            <Badge key={tag.id} className="w-fit px-5 py-2 text-blue-600 border-blue-300 bg-blue-50">
+              {tag.name}
+            </Badge>
+          ))}
+          </div>
+        </div>
       </div>
-      <Button type="submit" className="bg-primaryButton hover:bg-hoverButton">
+      <Button type="submit" className="bg-primaryButton hover:bg-hoverButton w-[100%]">
         Short me
       </Button>
     </form>
