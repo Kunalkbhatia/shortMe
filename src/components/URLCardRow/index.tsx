@@ -7,7 +7,7 @@ import { Button } from "../ui/button";
 import {
   Copy,
   Trash,
-  QrCode,
+  QrCode as Qr,
   CornerDownRight,
   Pointer,
   Tag as IconTag,
@@ -19,6 +19,9 @@ import {
 } from "../ui/hover-card";
 import { useToast } from "@/hooks/use-toast";
 import { deleteURL } from "@/actions/urlActions";
+import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import QRCode from 'react-qr-code';
+
 
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   const { toast } = useToast();
@@ -78,9 +81,18 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
                 <Button onClick={handleDelete} variant="ghost" size="icon">
                   <Trash className="h-4 w-4" />
                 </Button>
+                <Dialog>
+                <DialogTrigger asChild>
                 <Button variant="ghost" size="icon">
-                  <QrCode className="h-4 w-4" />
+                  <Qr className="h-4 w-4" />
                 </Button>
+                </DialogTrigger>
+                <DialogContent className="w-fit">
+                  {
+                    url.slug ? <QRCode value={`http://localhost:3000/${url.slug}`}/> : <QRCode value={`http://localhost:3000/${url.shortURL}`}/>
+                  }
+                </DialogContent>
+                </Dialog>
               </div>
             </div>
             <div className="flex gap-3 items-center">
