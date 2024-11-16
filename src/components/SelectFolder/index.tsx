@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/select";
 import { ArrowUpDown } from "lucide-react";
 
-const SelectFolder = () => {
+const SelectOrder = () => {
   return (
     <Select>
       <SelectTrigger className="text-md">
@@ -24,4 +24,4 @@ const SelectFolder = () => {
   );
 };
 
-export default SelectFolder;
+export default SelectOrder;

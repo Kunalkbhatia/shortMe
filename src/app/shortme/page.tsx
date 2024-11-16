@@ -1,12 +1,12 @@
-import SelectFolder from "@/components/SelectFolder";
-import { Input } from "@/components/ui/input";
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
 import CreateURL from "@/components/CreateURL";
 import { ManageTags } from "@/components/ManageTags";
-import prisma from "@/lib/db";
+import SelectOrder from "@/components/SelectFolder";
 import URLCardRow from "@/components/URLCardRow";
+import { Input } from "@/components/ui/input";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import prisma from "@/lib/db";
+import { redirect } from "next/navigation";
 
 async function Dashboard() {
   const session = await auth();
@@ -27,7 +27,7 @@ async function Dashboard() {
       </div>
       <div className="grid md:grid-cols-2 gap-5">
         <div className="flex gap-4">
-          <SelectFolder />
+          <SelectOrder />
           <Input
             placeholder="Search..."
             className="focus-within:outline-none bg-gray-200"
