@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -16,8 +17,37 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
+import { useToast } from "@/hooks/use-toast";
+import { deleteURL } from "@/actions/urlActions";
 
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
+  const { toast } = useToast();
+
+  const handleCopy = async () => {
+    if(url.slug){
+      await navigator.clipboard.writeText(`http://localhost:3000/${url.slug}`);
+    }
+    else {
+      await navigator.clipboard.writeText(`http://localhost:3000/${url.shortURL}`);
+    }
+    toast({
+      title: "URL copied!"
+    });
+  }
+
+  const handleDelete = async () => {
+    const error = await deleteURL(url);
+    if(error instanceof Error) {
+      toast({
+        title: error.message
+      })
+    }
+    else {
+      toast({
+        title: "URL Deleted",
+      })
+    }
+  }
   return (
     <Card>
       <CardContent className="flex flex-wrap items-center justify-between pt-2 gap-5">
@@ -42,10 +72,10 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
                 >{`http://localhost:3000/${url.shortURL}`}</a>
               )}
               <div className="flex items-center">
-                <Button variant="ghost" size="icon">
+                <Button onClick={handleCopy} variant="ghost" size="icon">
                   <Copy className="h-4 w-4" />
                 </Button>
-                <Button variant="ghost" size="icon">
+                <Button onClick={handleDelete} variant="ghost" size="icon">
                   <Trash className="h-4 w-4" />
                 </Button>
                 <Button variant="ghost" size="icon">

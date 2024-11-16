@@ -2,7 +2,7 @@
 import { auth } from "@/auth";
 import prisma from "@/lib/db";
 import { encodeBase62 } from "@/lib/utils";
-import { Tag } from "@prisma/client";
+import { Tag, URL } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export async function shortURLBySlug(formData: FormData, tags: Tag[], monitoring: boolean) {
@@ -40,7 +40,7 @@ export async function shortURLBySlug(formData: FormData, tags: Tag[], monitoring
     if(error instanceof Error)return error.message;
     else return "Something went wrong";
   }
-  revalidatePath("/");
+  revalidatePath("/shortme");
 }
 
 export async function shortURL(formData: FormData, tags: Tag[], monitoring:boolean) {
@@ -79,5 +79,26 @@ export async function shortURL(formData: FormData, tags: Tag[], monitoring:boole
     if(error instanceof Error)return error.message;
     else return "Somethin Went wrong";
   }
-  revalidatePath("/");
+  revalidatePath("/shortme");
+}
+
+
+export async function deleteURL(url: URL) {
+  const urlExist =  await prisma.uRL.findFirst({
+    where: {
+      id: url.id,
+    }
+  })
+
+  if(urlExist){
+    await prisma.uRL.delete({
+      where: {
+        id: url.id,
+      }
+    })
+  revalidatePath("/shortme")
+  }
+  
+  else return new Error("Failed deleting URL");
+
 }
