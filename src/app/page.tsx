@@ -112,7 +112,7 @@ function Landing() {
             </CardHeader>
             <CardContent>
               <div>
-                <div className="font-semibold">Geographic Click Insights</div>
+                <div className="font-semibold">Geographic Click Insights (Coming soon)</div>
                 <div>
                   Gain a deeper understanding of your audience by tracking
                   clicks from different states and cities. ShortMe&apos;s
