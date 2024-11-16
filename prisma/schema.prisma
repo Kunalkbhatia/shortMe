@@ -69,10 +69,10 @@ model Analytics {
   clicksOnLinux         Int        @default(0)
   clicksOnWindows       Int        @default(0)
   clicksOnMacOs         Int        @default(0)
-  clicksOnOtherOs       Int        @default(0) // rest browser
+  clicksOnOtherOs       Int        @default(0)
 
   // relations
-  url URL @relation(fields: [urlId], references: [id])
+  url URL @relation(fields: [urlId], references: [id], onDelete: Cascade)
 }
 
 model GeoClick {
