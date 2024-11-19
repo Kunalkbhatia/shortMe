@@ -142,7 +142,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
               <Pointer className="w-5 mr-2" />
               <div>clicks {url.clicks}</div>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="h-[700px]">
               <DrawerHeader className="flex flex-col justify-center items-center">
                 <DrawerTitle className="text-3xl">Aanlytics</DrawerTitle>
                 <DrawerDescription>
@@ -150,7 +150,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
                 </DrawerDescription>
               </DrawerHeader>
               <div className="font-bold text-2xl mx-5">Total Clicks: {url.clicks}</div>
-              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mx-5">
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mx-5 overflow-auto">
                 <BrowserChart />
                 <DeviceChart />
                 <PlatformChart />
