@@ -140,7 +140,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
           <Drawer>
             <DrawerTrigger className="flex flex-row border-2 border-primaryButton p-1 rounded-sm">
               <Pointer className="w-5 mr-2" />
-              <div>clicks {url.clicks}</div>
+              <div>{url.clicks}</div>
             </DrawerTrigger>
             <DrawerContent className="h-[700px] md:h-[500px]">
               <DrawerHeader className="flex flex-col justify-center items-center">
