@@ -1,6 +1,6 @@
+"use client"
 import {
   Link,
-  Settings,
   ChartNoAxesColumn,
 } from "lucide-react";
 
@@ -15,30 +15,25 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { auth } from "@/auth";
+import { usePathname } from "next/navigation";
 
 // Menu items.
 const items = [
   {
     title: "Links",
-    url: "#",
+    url: "links",
     icon: Link,
   },
   {
     title: "Analytics",
-    url: "#",
+    url: "analytics",
     icon: ChartNoAxesColumn,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
   },
 ];
 
-export async function AppSidebar() {
-  const session = await auth();
-  if (!session?.user) return;
+export function AppSidebar() {
+  const path = usePathname();
+  console.log(path);
   
   return (
     <Sidebar variant="floating">
@@ -56,15 +51,20 @@ export async function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.title} className="hover:font-bold hover:text-primaryButton">
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <a href={item.url} className={path === `/${item.url}` ? "text-primaryButton font-bold" : undefined}>
                       <item.icon />
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+              <SidebarMenuItem>
+                  <SidebarMenuButton className="font-bold text-center bg-primaryButton text-white w-fit mx-2">
+                    Logout
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
