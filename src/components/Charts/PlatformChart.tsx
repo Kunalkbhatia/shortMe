@@ -1,25 +1,20 @@
 "use client"
 
-import { TrendingUp } from "lucide-react"
 import { Bar, BarChart, XAxis, YAxis } from "recharts"
 
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle
 } from "@/components/ui/card"
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
+    ChartConfig,
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
 } from "@/components/ui/chart"
-
-export const description = "A mixed bar chart"
-
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -54,12 +49,11 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function Chart() {
+export function PlatformChart() {
   return (
-    <Card className="w-full">
+    <Card>
       <CardHeader>
-        <CardTitle>Bar Chart - Mixed</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+      <CardTitle className="text-center">Analytics Based on OS</CardTitle>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig}>
@@ -91,11 +85,8 @@ export function Chart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="flex gap-2 font-medium leading-none">
-          Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
-        </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+        Showing total visitors on variuos OS
         </div>
       </CardFooter>
     </Card>

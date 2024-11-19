@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React from "react";
 import { Card, CardContent } from "../ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -20,37 +20,44 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { deleteURL } from "@/actions/urlActions";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import QRCode from 'react-qr-code';
-
+import QRCode from "react-qr-code";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "../ui/drawer";
+import { BrowserChart } from "../Charts/BrowserChart";
+import { DeviceChart } from "../Charts/DeviceChart";
+import { PlatformChart } from "../Charts/PlatformChart";
 
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   const { toast } = useToast();
+  const URL = url.slug
+    ? `http://localhost:3000/${url.slug}`
+    : `http://localhost:3000/${url.shortURL}`;
 
   const handleCopy = async () => {
-    if(url.slug){
-      await navigator.clipboard.writeText(`http://localhost:3000/${url.slug}`);
-    }
-    else {
-      await navigator.clipboard.writeText(`http://localhost:3000/${url.shortURL}`);
-    }
+    await navigator.clipboard.writeText(URL);
     toast({
-      title: "URL copied!"
+      title: "URL copied!",
     });
-  }
+  };
 
   const handleDelete = async () => {
     const error = await deleteURL(url);
-    if(error instanceof Error) {
+    if (error instanceof Error) {
       toast({
-        title: error.message
-      })
-    }
-    else {
+        title: error.message,
+      });
+    } else {
       toast({
         title: "URL Deleted",
-      })
+      });
     }
-  }
+  };
   return (
     <Card>
       <CardContent className="flex flex-wrap items-center justify-between pt-2 gap-5">
@@ -63,17 +70,9 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              {url.slug ? (
-                <a
-                  href={`http://localhost:3000/${url.slug}`}
-                  className="font-bold"
-                >{`http://localhost:3000/${url.slug}`}</a>
-              ) : (
-                <a
-                  href={`http://localhost:3000/${url.shortURL}`}
-                  className="font-bold"
-                >{`http://localhost:3000/${url.shortURL}`}</a>
-              )}
+              <a href={URL} className="font-bold">
+                {URL}
+              </a>
               <div className="flex items-center">
                 <Button onClick={handleCopy} variant="ghost" size="icon">
                   <Copy className="h-4 w-4" />
@@ -82,16 +81,14 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
                   <Trash className="h-4 w-4" />
                 </Button>
                 <Dialog>
-                <DialogTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Qr className="h-4 w-4" />
-                </Button>
-                </DialogTrigger>
-                <DialogContent className="w-fit">
-                  {
-                    url.slug ? <QRCode value={`http://localhost:3000/${url.slug}`}/> : <QRCode value={`http://localhost:3000/${url.shortURL}`}/>
-                  }
-                </DialogContent>
+                  <DialogTrigger asChild>
+                    <Button variant="ghost" size="icon">
+                      <Qr className="h-4 w-4" />
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-fit">
+                    <QRCode value={URL} />
+                  </DialogContent>
                 </Dialog>
               </div>
             </div>
@@ -113,27 +110,53 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
         <div className="flex items-center gap-4">
           <HoverCard>
             <HoverCardTrigger className="flex items-center px-3 py-1 space-x-2 w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600">
-            <IconTag className="w-4 h-4 text-blue-600" />
-            <span className="font-medium">{url.tags[0]?.name ?? "No Tags"}</span>
-            {url.tags.length >= 1 && <span className="ml-auto text-blue-600"> | +{url.tags.length-1}</span>}
+              <IconTag className="w-4 h-4 text-blue-600" />
+              <span className="font-medium">
+                {url.tags[0]?.name ?? "No Tags"}
+              </span>
+              {url.tags.length >= 1 && (
+                <span className="ml-auto text-blue-600">
+                  {" "}
+                  | +{url.tags.length - 1}
+                </span>
+              )}
             </HoverCardTrigger>
             {url.tags.length > 1 && (
               <HoverCardContent className="w-fit space-y-2">
                 {url.tags.map((tag, index) => {
                   if (index >= 1)
                     return (
-                      <div key={tag.id} className="px-3 py-1 space-x-2 w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600">
-                       {tag.name}
+                      <div
+                        key={tag.id}
+                        className="px-3 py-1 space-x-2 w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600"
+                      >
+                        {tag.name}
                       </div>
                     );
                 })}
               </HoverCardContent>
             )}
           </HoverCard>
-          <Button variant="outline">
-            <Pointer className="w-5 mr-2" />
-            <div>clicks {url.clicks}</div>
-          </Button>
+          <Drawer>
+            <DrawerTrigger className="flex flex-row border-2 border-primaryButton p-1 rounded-sm">
+              <Pointer className="w-5 mr-2" />
+              <div>clicks {url.clicks}</div>
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader className="flex flex-col justify-center items-center">
+                <DrawerTitle className="text-3xl">Aanlytics</DrawerTitle>
+                <DrawerDescription>
+                 {URL}
+                </DrawerDescription>
+              </DrawerHeader>
+              <div className="font-bold text-2xl mx-5">Total Clicks: {url.clicks}</div>
+              <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mx-5">
+                <BrowserChart />
+                <DeviceChart />
+                <PlatformChart />
+              </div>
+            </DrawerContent>
+          </Drawer>
         </div>
       </CardContent>
     </Card>
