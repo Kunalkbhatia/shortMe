@@ -22,7 +22,7 @@ async function Links() {
   return (
     <div className="flex-1 flex flex-col space-y-12 p-3 md:p-8 h-screen overflow-hidden">
       <div className="flex justify-between items-center">
-      <div className="text-3xl font-bold text-prim">Links</div>
+      <div className="text-5xl font-bold text-prim">Links</div>
       <SidebarTrigger/>
       </div>
       <div className="grid md:grid-cols-2 gap-5">
