@@ -142,7 +142,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
               <Pointer className="w-5 mr-2" />
               <div>clicks {url.clicks}</div>
             </DrawerTrigger>
-            <DrawerContent className="h-[700px]">
+            <DrawerContent className="h-[700px] md:h-[500px]">
               <DrawerHeader className="flex flex-col justify-center items-center">
                 <DrawerTitle className="text-3xl">Aanlytics</DrawerTitle>
                 <DrawerDescription>
