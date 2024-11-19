@@ -8,7 +8,7 @@ import { SidebarTrigger } from "@/components/ui/sidebar";
 import prisma from "@/lib/db";
 import { redirect } from "next/navigation";
 
-async function Dashboard() {
+async function Links() {
   const session = await auth();
   if (!session?.user) redirect("/sign-in");
 
@@ -47,4 +47,4 @@ async function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Links;
