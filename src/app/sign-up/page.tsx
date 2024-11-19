@@ -9,8 +9,13 @@ import {
 import Image from "next/image";
 import mySvg from "../../assests/cloud.svg";
 import SignUpForm from "@/components/Forms/Sign-up";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-function SignUp() {
+async function SignUp() {
+  const session = await auth();
+  if(session?.user)redirect("/links");
+
   return (
     <div className="grid lg:grid-cols-3 h-screen">
       <div className="col-span-1 hidden lg:flex lg:flex-col gap-6 justify-center bg-gradient-to-b from-white to-[#9599ff] p-8 rounded-lg shadow-lg">
