@@ -16,13 +16,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 287, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 190, fill: "var(--color-other)" },
-]
+import { Analytics } from "@prisma/client"
+import { getAnalytics } from "@/actions/analytics"
 
 const chartConfig = {
   visitors: {
@@ -50,10 +45,32 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function BrowserChart() {
+export function BrowserChart({id}: {id: number}) {
+  const [analytics, setAnalytics] = React.useState<Analytics | null>(null);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      const data = await getAnalytics(id);
+      setAnalytics(data);
+    }
+    fetchData();
+  },[id]);
+
+  const chartData = React.useMemo(() => {
+    const data = [
+      { browser: "chrome", visitors: analytics?.clicksOnChrome ?? 0, fill: "var(--color-chrome)" },
+      { browser: "safari", visitors: analytics?.clicksOnSafari ?? 0, fill: "var(--color-safari)" },
+      { browser: "firefox", visitors: analytics?.clicksOnFireFox ?? 0, fill: "var(--color-firefox)" },
+      { browser: "edge", visitors: analytics?.clicksOnEdge ?? 0, fill: "var(--color-edge)" },
+      { browser: "other", visitors: analytics?.clicksOnOtherBrowsers ?? 0, fill: "var(--color-other)" },
+    ]
+    return data;
+  }, [analytics])
+  
+
   const totalVisitors = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
-  }, [])
+  }, [chartData])
 
   return (
     <Card className="flex flex-col justify-between">

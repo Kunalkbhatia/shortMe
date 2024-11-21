@@ -151,7 +151,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
               </DrawerHeader>
               <div className="font-bold text-2xl mx-5">Total Clicks: {url.clicks}</div>
               <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mx-5 overflow-auto">
-                <BrowserChart />
+                <BrowserChart id={url.id} />
                 <DeviceChart />
                 <PlatformChart />
               </div>
