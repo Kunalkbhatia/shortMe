@@ -15,43 +15,61 @@ import {
     ChartTooltip,
     ChartTooltipContent,
 } from "@/components/ui/chart"
-const chartData = [
-  { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
-  { browser: "firefox", visitors: 187, fill: "var(--color-firefox)" },
-  { browser: "edge", visitors: 173, fill: "var(--color-edge)" },
-  { browser: "other", visitors: 90, fill: "var(--color-other)" },
-]
+import { useEffect, useMemo, useState } from "react"
+import { Analytics } from "@prisma/client"
+import { getAnalytics } from "@/actions/analytics"
+
 
 const chartConfig = {
   visitors: {
     label: "Visitors",
   },
-  chrome: {
-    label: "Chrome",
+  window: {
+    label: "Window",
     color: "hsl(var(--chart-1))",
   },
-  safari: {
-    label: "Safari",
+  macOs: {
+    label: "MacOS",
     color: "hsl(var(--chart-2))",
   },
-  firefox: {
-    label: "Firefox",
+  linux: {
+    label: "Linux",
     color: "hsl(var(--chart-3))",
   },
-  edge: {
-    label: "Edge",
+  android: {
+    label: "Android",
     color: "hsl(var(--chart-4))",
   },
-  other: {
-    label: "Other",
+  ios: {
+    label: "IOS",
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig
 
-export function PlatformChart() {
+export function PlatformChart({id}: {id:number}) {
+
+  const [analytics, setAnalytics] = useState<Analytics | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getAnalytics(id);
+      setAnalytics(data);
+    }
+    fetchData();
+  },[id]);
+
+  const chartData = useMemo(() => {
+    const data = [
+      { platform: "window", visitors: analytics?.clicksOnWindows ?? 0, fill: "var(--color-window)" },
+      { platform: "macOs", visitors: analytics?.clicksOnMacOs ?? 0, fill: "var(--color-macOs)" },
+      { platform: "linux", visitors: analytics?.clicksOnLinux ?? 0, fill: "var(--color-linux)" },
+      { platform: "android", visitors: analytics?.clicksOnAndroid ?? 0, fill: "var(--color-android)" },
+      { platform: "ios", visitors: analytics?.clicksOnIOS ?? 0, fill: "var(--color-ios)" },
+    ]
+    return data;
+  }, [analytics])
   return (
-    <Card>
+    <Card >
       <CardHeader>
       <CardTitle className="text-center">Analytics Based on OS</CardTitle>
       </CardHeader>
@@ -66,7 +84,7 @@ export function PlatformChart() {
             }}
           >
             <YAxis
-              dataKey="browser"
+              dataKey="platform"
               type="category"
               tickLine={false}
               tickMargin={10}
@@ -84,8 +102,8 @@ export function PlatformChart() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
-        <div className="leading-none text-muted-foreground">
+      <CardFooter className="flex-col gap-2 text-sm">
+        <div className="leading-none text-muted-foreground text-center">
         Showing total visitors on variuos OS
         </div>
       </CardFooter>

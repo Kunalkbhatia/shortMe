@@ -61,7 +61,7 @@ export function DeviceChart() {
           </BarChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col items-start gap-2 text-sm">
+      <CardFooter className="flex-col gap-2 text-sm">
         <div className="leading-none text-muted-foreground">
         Showing total visitors on variuos Device
         </div>

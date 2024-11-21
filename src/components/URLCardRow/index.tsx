@@ -153,7 +153,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
               <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mx-5 overflow-auto">
                 <BrowserChart id={url.id} />
                 <DeviceChart />
-                <PlatformChart />
+                <PlatformChart id={url.id} />
               </div>
             </DrawerContent>
           </Drawer>
