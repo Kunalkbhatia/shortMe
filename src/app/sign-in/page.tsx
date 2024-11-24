@@ -49,7 +49,7 @@ async function SignIn() {
           <CardContent>
             <SignInForm/>
             <div className="mt-4 text-center text-sm">
-              Already have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/sign-up" className="underline">
                 Sign up
               </Link>
