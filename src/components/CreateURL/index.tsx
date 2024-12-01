@@ -42,7 +42,7 @@ const CreateURL = ({ tags }: CreateURLProps) => {
               track success with instant URL magic!
             </DialogDescription>
           </DialogHeader>
-          <CreateURLForm tags={tags} />
+          <CreateURLForm tags={tags} setOpen={setOpen} />
           <DialogFooter>
             <DialogClose>
               <Button type="button" variant="destructive">
@@ -69,7 +69,7 @@ const CreateURL = ({ tags }: CreateURLProps) => {
           track success with instant URL magic!
           </DrawerDescription>
         </DrawerHeader>
-        <CreateURLForm tags={tags} />
+        <CreateURLForm tags={tags} setOpen={setOpen} />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
           <Button type="button" variant="destructive">

@@ -13,7 +13,7 @@ import {
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 
-const CreateURLForm = ({ tags }: { tags: Tag[] }) => {
+const CreateURLForm = ({ tags, setOpen }: { tags: Tag[], setOpen: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [monitoring, setMonitoring] = useState<boolean>(true);
 
@@ -89,7 +89,7 @@ const CreateURLForm = ({ tags }: { tags: Tag[] }) => {
           </div>
         </div>
       </div>
-      <Button type="submit" className="bg-primaryButton hover:bg-hoverButton w-[100%]">
+      <Button type="submit" className="bg-primaryButton hover:bg-hoverButton w-[100%]" onClick={() => setOpen(false)}>
         Short me
       </Button>
     </form>
