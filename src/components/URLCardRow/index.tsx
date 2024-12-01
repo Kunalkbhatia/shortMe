@@ -138,10 +138,11 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
             )}
           </HoverCard>
           <Drawer>
-            <DrawerTrigger className="flex flex-row border-2 border-primaryButton p-1 rounded-sm">
-              <Pointer className="w-5 mr-2" />
-              <div>{url.clicks}</div>
-            </DrawerTrigger>
+          <DrawerTrigger className="flex items-center space-x-3 px-3 py-1 w-[100px] rounded-sm border border-primaryButton bg-primaryButton/10 text-primaryButton hover:bg-primaryButton/20 transition-colors duration-300">
+  <Pointer className="w-5 h-5 text-primaryButton" />
+  <div className="text-lg font-semibold text-primaryButton">{url.clicks}</div>
+</DrawerTrigger>
+
             <DrawerContent className="h-[700px] md:h-[500px]">
               <DrawerHeader className="flex flex-col justify-center items-center">
                 <DrawerTitle className="text-3xl">Aanlytics</DrawerTitle>
