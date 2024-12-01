@@ -20,13 +20,13 @@ function Landing() {
         
     <div className="flex space-x-4">
       <Link
-        href="/login"
+        href="/sign-in"
         className="font-semibold text-white bg-primaryButton text-xl py-2 px-4 rounded-md transition-transform duration-300 transform hover:scale-105 hover:shadow-lg"
       >
         Login
       </Link>
       <Link
-        href="/signup"
+        href="/sign-up"
         className="font-semibold text-primaryButton bg-white text-xl py-2 px-4 rounded-md transition-transform duration-300 transform hover:scale-105 hover:shadow-lg"
       >
         Signup
