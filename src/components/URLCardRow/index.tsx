@@ -109,7 +109,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
         </div>
         <div className="flex items-center gap-4">
           <HoverCard>
-            <HoverCardTrigger className="flex items-center px-3 py-1 space-x-2 w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600">
+            <HoverCardTrigger className="flex items-center px-3 py-1 space-x-2 min-w-[120px] rounded-sm border border-blue-300 bg-blue-50 text-blue-600">
               <IconTag className="w-4 h-4 text-blue-600" />
               <span className="font-medium">
                 {url.tags[0]?.name ?? "No Tags"}
