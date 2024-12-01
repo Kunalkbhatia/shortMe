@@ -12,8 +12,15 @@ async function Links() {
   const session = await auth();
   if (!session?.user) redirect("/sign-in");
 
-  const tags = await prisma.tag.findMany();
+  const tags = await prisma.tag.findMany({
+    where: {
+      userId: session.user.id,
+    }
+  });
   const urls = await prisma.uRL.findMany({
+    where: {
+      userId: session.user.id,
+    },
     include: {
       tags: true,
     }
