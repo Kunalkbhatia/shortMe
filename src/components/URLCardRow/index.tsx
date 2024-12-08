@@ -38,8 +38,8 @@ import { format } from "date-fns";
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   const { toast } = useToast();
   const URL = url.slug
-    ? `http://localhost:3000/${url.slug}`
-    : `http://localhost:3000/${url.shortURL}`;
+    ? `https://www.shortme.fun/${url.slug}`
+    : `https://www.shortme.fun//${url.shortURL}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(URL);
