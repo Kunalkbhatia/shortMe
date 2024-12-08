@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "if [ \"$VERCEL\" = \"1\" ]; then prisma generate; fi"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.7.0",
