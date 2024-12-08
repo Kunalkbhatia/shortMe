@@ -46,14 +46,16 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function PlatformChart({id}: {id:number}) {
+export function PlatformChart({id}: {id?:number}) {
 
   const [analytics, setAnalytics] = useState<Analytics | null>(null);
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getAnalytics(id);
-      setAnalytics(data);
+      if(id !== undefined) {
+        const data = await getAnalytics(id);
+        setAnalytics(data);
+      }
     }
     fetchData();
   },[id]);

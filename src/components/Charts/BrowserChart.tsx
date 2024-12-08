@@ -45,13 +45,15 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-export function BrowserChart({id}: {id: number}) {
+export function BrowserChart({id}: {id?: number}) {
   const [analytics, setAnalytics] = React.useState<Analytics | null>(null);
 
   React.useEffect(() => {
     async function fetchData() {
-      const data = await getAnalytics(id);
-      setAnalytics(data);
+      if(id !== undefined) {
+        const data = await getAnalytics(id);
+        setAnalytics(data);
+      }
     }
     fetchData();
   },[id]);
