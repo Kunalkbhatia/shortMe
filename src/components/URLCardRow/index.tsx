@@ -39,7 +39,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   const { toast } = useToast();
   const URL = url.slug
     ? `shortme.fun/${url.slug}`
-    : `shortme.fun//${url.shortURL}`;
+    : `shortme.fun/${url.shortURL}`;
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(URL);
