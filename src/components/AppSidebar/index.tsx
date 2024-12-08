@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/sidebar";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
+
 
 // Menu items.
 const items = [
@@ -33,7 +35,6 @@ const items = [
 
 export function AppSidebar() {
   const path = usePathname();
-  console.log(path);
   
   return (
     <Sidebar variant="floating">
@@ -61,7 +62,7 @@ export function AppSidebar() {
                 </SidebarMenuItem>
               ))}
               <SidebarMenuItem>
-                  <SidebarMenuButton className="font-bold text-center bg-primaryButton text-white w-fit mx-2">
+                  <SidebarMenuButton className="font-bold text-center bg-primaryButton text-white w-fit mx-2" onClick={() => signOut()}>
                     Logout
                   </SidebarMenuButton>
                 </SidebarMenuItem>
