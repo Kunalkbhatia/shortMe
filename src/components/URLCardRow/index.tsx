@@ -41,6 +41,10 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
     ? `shortme.fun/${url.slug}`
     : `shortme.fun/${url.shortURL}`;
 
+    const visitURL = url.slug
+    ? `https://www.shortme.fun/${url.slug}`
+    : `https://www.shortme.fun/${url.shortURL}`;
+
   const handleCopy = async () => {
     await navigator.clipboard.writeText(URL);
     toast({
@@ -75,7 +79,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <a href={URL} className="font-bold">
+              <a href={visitURL} className="font-bold">
                 {URL}
               </a>
               <div className="flex items-center">
