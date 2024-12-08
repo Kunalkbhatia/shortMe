@@ -7,6 +7,7 @@ import barChart from "../assests/barChart.png";
 import svg1 from "../assests/Dn2faup5mukNtR03MMFtt56LwI.svg";
 import svg2 from "../assests/jHCqkdk4lhQt4sbKVlJy2CUCQ2Q.svg";
 import svg3 from "../assests/x9WGidJ1IAyzsTlPqMrTpca6P6g.svg";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 function Landing() {
@@ -49,8 +50,9 @@ function Landing() {
         <video
           width={800}
           height={500}
-          src="https://www.youtube.com/watch?v=38fhj9tFfAQ"
-          className="border-4 border-black rounded-md"
+          src="/assets/videoo.mp4"
+          className="rounded-md"
+          controls
         />
       </div>
       <div className="flex flex-col gap-8 items-center bg-secondaryBg py-10 rounded-xl">
