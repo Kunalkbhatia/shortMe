@@ -32,6 +32,8 @@ import {
 import { BrowserChart } from "../Charts/BrowserChart";
 import { DeviceChart } from "../Charts/DeviceChart";
 import { PlatformChart } from "../Charts/PlatformChart";
+import { format } from "date-fns";
+
 
 const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
   const { toast } = useToast();
@@ -58,6 +60,9 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
       });
     }
   };
+
+
+  const formattedDate = format(new Date(url.createdAt), "MMM dd");
   return (
     <Card>
       <CardContent className="flex flex-wrap items-center justify-between pt-2 gap-5">
@@ -103,7 +108,7 @@ const URLCardRow = ({ url }: { url: URL & { tags: Tag[] } }) => {
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <div className="font-bold flex-shrink-0">Oct 29</div>
+              <div className="font-bold flex-shrink-0">{formattedDate}</div>
             </div>
           </div>
         </div>
